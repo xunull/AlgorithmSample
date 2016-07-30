@@ -8,6 +8,7 @@ function baoshu() {
 
     var index = 0;
     var remain = 500;
+    var steps=0;
     while (true) {
         for (var i = 0; i < 3; i++) {
 
@@ -16,7 +17,9 @@ function baoshu() {
                 if (index === 500) {
                     index = 0;
                 }
+                steps++;
             }
+            steps++;
             index++;
             if (index === 500) {
                 index = 0;
@@ -31,7 +34,7 @@ function baoshu() {
 
         delete attr[index];
         remain -= 1;
-        console.log('remain is ', remain);
+        // console.log('remain is ', remain);
         if (remain === 1) {
             break;
         }
@@ -42,7 +45,7 @@ function baoshu() {
             break;
         }
     }
-    console.log(attr);
+    console.log('话费的步数为: ',steps);
 }
 
 baoshu();
