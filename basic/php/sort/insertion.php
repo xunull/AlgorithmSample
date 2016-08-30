@@ -32,15 +32,21 @@ function insertion($arr) {
           echo $temp.' +++ '.$tempArr[$i];
           break;
         }
+
+        // 已经比到了最后一个元素
         if($i+1==count($tempArr)) {
           array_push($tempArr,$temp);
           echo $temp.' +++ '.$tempArr[$i];
           break;
         }
-        if($i==count($tempArr)) {
-          array_unshift($tempArr,$temp);
-        }
+
       }
+      // 有可能前面的元素都比此值大，因此，它就是最小的需要放在最前面
+      // 但如果能保证第一个被push进去的值，是其中最小的值时(先找出来一个最小的放进去)就不需要这个步骤了
+      // 但是这两种方法那个好，也是不一定的，如果先判断最小值，那么这就是一个必然发生的事情
+      // 但下面的这部分代码，不一定会被执行到，也不一定会被执行几次
+      //
+
       if($i+1==count($tempArr)) {
         array_unshift($tempArr,$temp);
         break;
