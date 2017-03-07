@@ -3,57 +3,51 @@
  */
 
 // 引入了readline 使用完后就必须调用close 方法,否则程序不会终止
-var readline = require('readline');
+const readline = require('readline');
 
-var rl = readline.createInterface({
+const rl = readline.createInterface({
     input: process.stdin,
     // 如果不设置output ,当使用readline 的question 方法的时候不会有输出
-    output: process.stdout
+    output: process.stdout,
 });
-
-// rl.setPrompt('>>');
-// rl.prompt();
-
-// rl.on('line', (cmd) => {
-//   console.log(`You just typed: ${cmd}`);
-// });
-
-rl.question('请输入十进制数字,将其转化为特殊进制 ', (answer) => {
-    // TODO: Log the answer in a database
-    console.log('Thank you for your valuable feedback:', answer);
-    console.log('result is ', tenToAny(answer, 4));
-});
-
-// rl.question('请输入任意进制的数,将其转化为10进制', (answer) => {
-//     console.log('result is ', anyToTen(answer, 3));
-//     rl.close();
-// });
 
 function tenToAny(number, any) {
-    var result_arr = [];
-    var remainder;
-    var quotient;
-    if (number < any) {
-        return number;
+    const resultArr = [];
+    let remainder;
+    let quotient = number;
+    if (quotient <= any) {
+        return quotient;
     }
     do {
-        remainder = number % any;
-        result_arr.unshift(remainder);
-        number = Math.floor(number / any);
-    } while (number >= any);
-    result_arr.unshift(number);
-
-    return +result_arr.join('');
+        remainder = quotient % any;
+        resultArr.unshift(remainder);
+        quotient = Math.floor(quotient / any);
+    } while (quotient >= any);
+    resultArr.unshift(quotient);
+    return +resultArr.join('');
 }
 
-function anyToTen(number, any) {
-    number = '' + number;
-    number_arr = number.split('');
-    var length = number_arr.length;
+function anyToTen(number, base) {
+    const numberArr = number.toString().split('');
+    const length = numberArr.length;
     // 这个如果不设置成0 result 会是NaN
-    var result = 0;
-    for (var i = 0; i < length; i++) {
-        result += (+number_arr[i]) * Math.pow(any, length - i - 1);
-    }
+    let result = 0;
+
+    numberArr.forEach((value, index) => {
+        result += (+value) * (base ** (length - index - 1));
+    });
     return result;
 }
+
+rl.question('请输入十进制数字,将其转化为特殊进制 ', (answer) => {
+    const temp = answer.trim();
+    const num = temp.split(/\s/)[0];
+    const base = temp.split(/\s/)[1];
+    // 参数需要是数字
+    const result = tenToAny(+num, +base);
+    console.log(`result is ${result}`);
+    console.log(`转换回十进制为  ${anyToTen(result, base)}`);
+    rl.close();
+});
+
+
