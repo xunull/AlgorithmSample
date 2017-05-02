@@ -8,7 +8,7 @@ def kuaisu(input,start=-1,end=-1):
         return
     '''
     时间复杂度，最坏的情况下跟冒泡法一样n的二次方
-    平局复杂度nlogn
+    平均复杂度nlogn
     快速排序是二分的思想
     '''
     benchmark=input[start]
