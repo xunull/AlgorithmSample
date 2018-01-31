@@ -1,9 +1,9 @@
-def kuaisu(input,start=-1,end=-1):
+def kuaisu(input, start=-1, end=-1):
 
     if start == -1:
-        start=0
+        start = 0
     if end == -1:
-        end = len(input)-1
+        end = len(input) - 1
     if start == end:
         return
     '''
@@ -11,31 +11,32 @@ def kuaisu(input,start=-1,end=-1):
     平均复杂度nlogn
     快速排序是二分的思想
     '''
-    benchmark=input[start]
+    benchmark = input[start]
     # sentryA=input[start+1]
-    sentryAIndex=start
-    sentryBIndex=end
+    sentryAIndex = start
+    sentryBIndex = end
     # sentryB=input[end]
 
-    for i in range(start,end):
-        if input[sentryBIndex-(i-start)]<benchmark:
-            sentryBIndex=i
-            for j in range(sentryAIndex,sentryBIndex):
-                if input[j]>benchmark:
-                    sentryAIndex=j
-                    temp=input[sentryBIndex]
-                    input[sentryBIndex]=input[sentryAIndex]
-                    input[sentryAIndex]=temp
+    for i in range(start, end):
+        if input[sentryBIndex - (i - start)] < benchmark:
+            sentryBIndex = i
+            for j in range(sentryAIndex, sentryBIndex):
+                if input[j] > benchmark:
+                    sentryAIndex = j
+                    temp = input[sentryBIndex]
+                    input[sentryBIndex] = input[sentryAIndex]
+                    input[sentryAIndex] = temp
                     break
                 else:
                     pass
             if sentryAIndex == sentryBIndex:
-                kuaisu(input,start,sentryBIndex)
-                kuaisu(input,sentryBIndex,end)
+                kuaisu(input, start, sentryBIndex)
+                kuaisu(input, sentryBIndex, end)
         else:
             pass
 
-testArr=[2,3,4,56,1,25,34,6,12]
+
+testArr = [2, 3, 4, 56, 1, 25, 34, 6, 12]
 
 kuaisu(testArr)
 print(testArr)
